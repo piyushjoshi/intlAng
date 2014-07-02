@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="intlApp">
+<head>
+<title>Ang1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bootstrap.css" />
+<link rel="stylesheet" href="bootstrap-theme.css" />
+<!-- <link rel="stylesheet" href="grid.css" /> -->
+<style>
+.strike {
+	text-decoration: line-through;
+}
+
+.innerRow {
+	margin: 0px;
+	padding: 0px;
+}
+
+.marginBtm16 {
+	margin-bottom: 16px;
+}
+
+.marginBtm8 {
+	margin-bottom: 8px;
+}
+
+.hashborder_bottom {
+	border-bottom: 1px solid #c7c7c7;
+}
+</style>
+</head>
+<body ng-controller="intlCtrl">
+	<div class="container">
+		<div class="page-header">
+			<h3>Intl Flights</h3>
+		</div>
+		<div id="listingPage">
+			<div class="row">
+				<div class="col-md-3 visible-md visible-lg">Filters</div>
+				<div class="col-md-9">
+					<div ng-repeat="rec in recList">
+						<div class="row marginBtm16 visible-xs">
+							<div class="col-xs-2">
+								<img ng-src="{{airlineInfo[rec.refAirline[0].code].smallLogo}}"
+									alt="Logo" />
+							</div>
+							<div class="col-xs-4">{{airlineInfo[rec.refAirline[0].code].name}}</div>
+							<div class="col-xs-3">
+								<span class="strike">1,53,088</span>
+							</div>
+							<div class="col-xs-3">{{rec.totPricePerAdt | currency : 'INR '}}</div>
+						</div>
+						<div class="row innerRow marginBtm16">
+							<div class="col-sm-2 hidden-xs">
+								<p>
+									<img ng-src="{{airlineInfo[rec.refAirline[0].code].smallLogo}}"
+										alt="Logo" />
+								</p>
+								<p>{{airlineInfo[rec.refAirline[0].code].name}}</p>
+							</div>
+							<div class="row innerRow col-sm-6">
+								<div class="row innerRow marginBtm8 hashborder_bottom">
+									<div class="col-xs-4">
+										<p>16 Jul,04:10</p>
+										<p>Delhi</p>
+									</div>
+									<div class="col-xs-5">
+										<p>16 Jul,07:10</p>
+										<p>London</p>
+									</div>
+									<div class="col-xs-3">
+										<p>02h 25m</p>
+										<p>Non Stop</p>
+									</div>
+								</div>
+
+								<div class="row innerRow marginBtm8">
+									<div class="col-xs-4">
+										<p>16 Jul,04:10</p>
+										<p>London</p>
+									</div>
+									<div class="col-xs-5">
+										<p>16 Jul,07:10</p>
+										<p>New Delhi</p>
+									</div>
+									<div class="col-xs-3">
+										<p>02h 25m</p>
+										<p>Non Stop</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 hidden-xs">
+								<p>Earn 50 points</p>
+								<p>& 20000 miles</p>
+								<p>
+									<a>Flight details</a>
+								</p>
+							</div>
+							<div class="col-sm-2 hidden-xs">
+								<p>
+									<span class="strike">1,53,088</span>
+								</p>
+								<p>
+									<span>{{rec.totPricePerAdt | currency : 'INR '}}</span>
+								</p>
+								<p>
+									<button class="btn btn-success">Book</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="angular.js"></script>
+		<script type="text/javascript" src="app-init.js"></script>
+		<script type="text/javascript" src="model.js"></script>
+		<script type="text/javascript" src="modelUtil.js"></script>
+		<script type="text/javascript" src="intlCtrl.js"></script>
+	</div>
+</body>
+</html>
