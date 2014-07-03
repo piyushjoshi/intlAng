@@ -2,4 +2,4 @@
  * 
  */
 var modules = modules || {};
-modules.intlApp = angular.module("intlApp", []);
+modules.intlApp = angular.module("intlApp", ['infinite-scroll']);
