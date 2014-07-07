@@ -41,3 +41,19 @@ model.utils.formatDuration = function(rec) {
 		seg.durationFormatted = str;
 	});
 };
+model.utils.calculateStops = function(rec) {
+	var maxStops = 0;
+	angular.forEach(rec.segments, function(seg) {
+		var techStopCount = 0;
+		angular.forEach(seg.groupOfFlights, function(flight) {
+			if (flight.techStopOver) {
+				techStopCount += flight.techStopOver.length;
+			}
+		});
+		seg.noOfStops = techStopCount + seg.groupOfFlights.length - 1;
+		if (maxStops < seg.noOfStops) {
+			maxStops = seg.noOfStops;
+		}
+	});
+	rec.noOfStops = maxStops;
+};
