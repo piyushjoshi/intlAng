@@ -34,7 +34,7 @@ var model = function() {
 	};
 
 	modules.intlApp.run(function($http, $q) {
-		$http.get("recs_MC_148.json").success(function(data) {
+		$http.jsonp("http://localhost:8888?callback=JSON_CALLBACK").success(function(data) {
 			angular.forEach(data[0].results, function(rec) {
 				utils.pushRec(rec);
 			});
