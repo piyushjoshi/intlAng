@@ -53,8 +53,9 @@ modules.intlApp.controller("recGroupCtrl", function($scope) {
 	$scope.radioGroups = arrOfGroups;
 	$scope.selectedRec = $scope.recGroup[0];
 
-	$scope.selectedRadiosRecs = [];
-	$scope.validationSelectedRadios = function() {
+	$scope.boundedRecsRegistry = [];
+	$scope.validateRadioSelection = function(groupIndex, newRecs) {
+
 	};
 });
 
@@ -63,7 +64,7 @@ modules.intlApp.controller("radioGroupCtrl", function($scope) {
 	for (; i < $scope.radioGroup.length; i++) {
 		if ($scope.radioGroup[i].recs.indexOf(defaultSelectedRec) >= 0) {
 			$scope.selectedRadioIndex = i;
-			$scope.selectedRadiosRecs.push($scope.radioGroup[i].recs);
+			$scope.boundedRecsRegistry[$scope.radioGroup[i].segment.index] = $scope.radioGroup[i].recs;
 			break;
 		}
 	}
@@ -74,6 +75,7 @@ modules.intlApp.controller("radioGroupCtrl", function($scope) {
 				return rec.index;
 			}));
 		}
+		$scope.validateRadioSelection($scope.radioGroup[index].segment.index, $scope.radioGroup[index].recs);
 		console.log("previous selection = " + $scope.selectedRadioIndex);
 		console.log("clicked on = " + index);
 	};

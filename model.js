@@ -8,7 +8,7 @@ var model = function() {
 		model.utils.processFare(rec);
 		model.utils.formatDuration(rec);
 		model.utils.calculateStops(rec);
-		rec.index = recs.length;
+		model.utils.populateIndices(rec, recs.length);
 		recs.push(rec);
 	};
 

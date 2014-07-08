@@ -57,3 +57,10 @@ model.utils.calculateStops = function(rec) {
 	});
 	rec.noOfStops = maxStops;
 };
+model.utils.populateIndices = function(rec, recIndex){
+	var i = 0;
+	rec.index = recIndex;
+	for(; i < rec.segments.length; i++){
+		rec.segments[i].index = i;
+	}
+};
