@@ -62,8 +62,7 @@
 							<div class="col-xs-3">{{recGroup[0].totPricePerAdt |
 								currency : 'INR ' | currencyWithoutDecimal}}</div>
 						</div>
-						<div class="row innerRow marginBtm16"
-							ng-controller="recGroupCtrl">
+						<div class="row innerRow marginBtm16" ng-controller="recGroupCtrl">
 							<div class="col-sm-2 hidden-xs">
 								<p>
 									<img
@@ -76,7 +75,8 @@
 								<div class="row innerRow marginBtm8"
 									ng-class="{hashborder_bottom:!$last}"
 									ng-repeat="radioGroup in radioGroups">
-									<div class="groupedRecs" ng-show="!isSingleRec" ng-controller="radioGroupCtrl">
+									<div class="groupedRecs" ng-show="!isSingleRec"
+										ng-controller="radioGroupCtrl">
 										<div class="row innerRow marginBtm8">
 											<div class="col-xs-6">
 												{{radioGroup[0].segment.groupOfFlights[0].departureInfo.cityName}}</div>
@@ -87,7 +87,9 @@
 										<div class="row innerRow marginBtm8"
 											ng-repeat="radioObj in radioGroup">
 											<div class="col-xs-4">
-												<input type="radio" ng-model="$parent.selectedRadioIndex" value="{{$index}}" ng-click="radioClick($index)"/>
+												<input type="radio"
+													ng-model="$parent.selectedRadioIndexRegistry[$parent.$index]"
+													value="{{$index}}" ng-change="radioClick($index, $parent.$index)" />
 												{{radioObj.segment.groupOfFlights[0].departureInfo.absDateTime}}
 											</div>
 											<div class="col-xs-4">
@@ -145,6 +147,7 @@
 		</div>
 		<script type="text/javascript" src="jquery-1.11.1.js"></script>
 		<script type="text/javascript" src="angular.js"></script>
+		<script type="text/javascript" src="underscore.js"></script>
 		<script type="text/javascript" src="app-init.js"></script>
 		<script type="text/javascript" src="model.js"></script>
 		<script type="text/javascript" src="modelUtil.js"></script>

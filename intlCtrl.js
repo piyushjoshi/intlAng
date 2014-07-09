@@ -21,8 +21,6 @@ modules.intlApp.controller("intlCtrl", function($scope) {
 });
 
 modules.intlApp.controller("recGroupCtrl", function($scope) {
-	console.log("$scope.recGroup" + $scope.recGroup.length);
-
 	// transform recGroup array to array of radioButtonGroups
 	var arrOfGroups = [], i = 0;
 
@@ -54,8 +52,32 @@ modules.intlApp.controller("recGroupCtrl", function($scope) {
 	$scope.selectedRec = $scope.recGroup[0];
 
 	$scope.boundedRecsRegistry = [];
-	$scope.validateRadioSelection = function(groupIndex, newRecs) {
+	$scope.selectedRadioIndexRegistry = [];
 
+	$scope.validateRadioSelection = function(groupIndex, newRecs) {
+		var temp = $scope.boundedRecsRegistry.slice(0), intersection;
+		temp[groupIndex] = newRecs;
+		intersection = _.intersection.apply(_, temp)[0];
+		if (intersection) {
+			$scope.selectedRec = intersection;
+			return true;
+		} else {
+			return false;
+		}
+	};
+	$scope.enforceSelection = function(groupIndex, newRecs) {
+		var newSelectedRec = newRecs[0];
+		if (newSelectedRec) {
+			$scope.selectedRec = newSelectedRec;
+			$scope.selectedRadioIndexRegistry = $scope.radioGroups.map(function(radioGroup) {
+				return radioGroup.map(function(radioObj) {
+					return radioObj.recs.indexOf(newSelectedRec) >= 0;
+				}).indexOf(true);
+			});
+			$scope.boundedRecsRegistry = $scope.selectedRadioIndexRegistry.map(function(radioObjIndex, segmentIndex) {
+				return $scope.radioGroups[segmentIndex][radioObjIndex].recs;
+			});
+		}
 	};
 });
 
@@ -63,20 +85,25 @@ modules.intlApp.controller("radioGroupCtrl", function($scope) {
 	var defaultSelectedRec = $scope.selectedRec, i = 0;
 	for (; i < $scope.radioGroup.length; i++) {
 		if ($scope.radioGroup[i].recs.indexOf(defaultSelectedRec) >= 0) {
-			$scope.selectedRadioIndex = i;
+			$scope.selectedRadioIndexRegistry[$scope.radioGroup[i].segment.index] = i;
+			$scope.previousSelection = i;
 			$scope.boundedRecsRegistry[$scope.radioGroup[i].segment.index] = $scope.radioGroup[i].recs;
 			break;
 		}
 	}
-	$scope.radioClick = function(index) {
-		var previousSelection = $scope.selectedRec;
-		if ($scope.radioGroup[index].recs.indexOf(previousSelection) === -1) {
-			console.log("selection changed! Previous: " + previousSelection.index + ", new selection: " + $scope.radioGroup[index].recs.map(function(rec) {
-				return rec.index;
-			}));
+	$scope.radioClick = function(radioButtonindex, radioGroupIndex) {
+		var validSelection, decision;
+		validSelection = $scope.validateRadioSelection(radioGroupIndex, $scope.radioGroup[radioButtonindex].recs);
+		if (!validSelection) {
+			decision = window.confirm("This timing is not compatible with other legs. Do you wish to change timings of other legs to make it compatible?");
+			if (decision) {
+				$scope.enforceSelection(radioGroupIndex, $scope.radioGroup[radioButtonindex].recs);
+			} else {
+				$scope.selectedRadioIndexRegistry[radioGroupIndex] = $scope.previousSelection;
+			}
+		} else {
+			$scope.previousSelection = $scope.selectedRadioIndexRegistry[radioGroupIndex];
 		}
-		$scope.validateRadioSelection($scope.radioGroup[index].segment.index, $scope.radioGroup[index].recs);
-		console.log("previous selection = " + $scope.selectedRadioIndex);
-		console.log("clicked on = " + index);
+		console.log("$scope.selectedRec.index = " + $scope.selectedRec.index);
 	};
 });
