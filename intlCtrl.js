@@ -2,7 +2,7 @@
  * 
  */
 
-modules.intlApp.controller("intlCtrl", function($scope) {
+modules.intlApp.controller("listingCtrl", function($scope) {
 	var defaultRecsVisible = 5, recsToAddOnScroll = 3;
 
 	$scope.recList = model.getRecs();

@@ -1,5 +1,12 @@
 /**
- * 
+ *  App bootstrap
  */
-var modules = modules || {};
-modules.intlApp = angular.module("intlApp", ['infinite-scroll']);
+(function(window) {
+	'use strict';
+	var intlApp = window.intlApp || (window.intlApp = {});
+
+	intlApp.modules = intlApp.modules || {};
+
+	intlApp.modules.mainModule = angular.module("intlApp", [ 'infinite-scroll' ]);
+
+})(window);
