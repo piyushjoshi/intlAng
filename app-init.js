@@ -3,10 +3,9 @@
  */
 (function(window) {
 	'use strict';
-	var intlApp = window.intlApp || (window.intlApp = {});
+	var modules = window.modules || (window.modules = {});
 
-	intlApp.modules = intlApp.modules || {};
 
-	intlApp.modules.mainModule = angular.module("intlApp", [ 'infinite-scroll' ]);
+	modules.intlApp = angular.module("intlApp", [ 'infinite-scroll' ]);
 
 })(window);

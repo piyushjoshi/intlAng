@@ -7,7 +7,7 @@
 			var parsedUrl = url.parse(req.url, true);
 			res.writeHead(200, {"content-type":"application/json"});
 			res.write(parsedUrl.query.callback+"(");
-			fs.readFile("/home/piyushjoshi/coding/ang1/recs_MC_148.json","utf8", function(err, data){
+			fs.readFile("/home/piyush/coding/intlAng/recs_MC_148.json","utf8", function(err, data){
 				res.write(data);
 				res.write(")");
 				setTimeout(function(){res.end();}, 3000);
